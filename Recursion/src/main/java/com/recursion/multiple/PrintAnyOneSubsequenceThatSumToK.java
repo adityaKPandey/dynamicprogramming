@@ -3,12 +3,12 @@ package com.recursion.multiple;
 import java.util.LinkedList;
 
 // subsequence : a contiguous or non-contiguous sequence which follows the order
-public class PrintAllSubsequencesThatSumToK  {
+public class PrintAnyOneSubsequenceThatSumToK {
 
-  public void printAll(Integer[] array, int index, LinkedList<Integer> subsequence, long k , int currentSum) {
+  public boolean printAnyOne(Integer[] array, int index, LinkedList<Integer> subsequence, long k , int currentSum) {
 
     if (index >= array.length)
-      return;
+      return false;
     else
       subsequence.addLast(array[index]);
 
@@ -16,15 +16,24 @@ public class PrintAllSubsequencesThatSumToK  {
       subsequence.forEach( d -> System.out.print(d+" "));
       System.out.println();
       System.out.println("--------");
+      return true;
     }
 
-    printAll(array, index + 1, subsequence , k, currentSum + array[index]);
+    boolean result = printAnyOne(array, index + 1, subsequence , k, currentSum + array[index]);
+    if(result)
+      return true;
+
     subsequence.removeLast();
-    printAll(array, index + 1, subsequence,k,currentSum );
+    result = printAnyOne(array, index + 1, subsequence,k,currentSum );
+
+    if(result)
+      return true;
+
+    return false;
 
   }
 
-  public void printAll2(Integer[] array, int index, LinkedList<Integer> subsequence, long k) {
+  public void printAnyOne2(Integer[] array, int index, LinkedList<Integer> subsequence, long k) {
 
     if (subsequence.stream().reduce(0, (a, b) -> a + b) == k){
       subsequence.forEach( d -> System.out.print(d+" "));
@@ -34,7 +43,7 @@ public class PrintAllSubsequencesThatSumToK  {
 
     for(int i = index ; i  < array.length ; i++){
       subsequence.addLast(array[i]);
-      printAll2(array, i + 1, subsequence , k);
+      printAnyOne2(array, i + 1, subsequence , k);
       subsequence.removeLast();
     }
 
@@ -42,21 +51,24 @@ public class PrintAllSubsequencesThatSumToK  {
 
   public static void main(String[] args) {
     Integer[] array = {1 , 2, 1};
-    PrintAllSubsequencesThatSumToK printAllSubsequences = new PrintAllSubsequencesThatSumToK();
+    PrintAnyOneSubsequenceThatSumToK printAllSubsequences = new PrintAnyOneSubsequenceThatSumToK();
 
     System.out.println("Sol type 1 : ");
-    printAllSubsequences.printAll(array,0,new LinkedList<>(),2,0);
+    printAllSubsequences.printAnyOne(array,0,new LinkedList<>(),2,0);
 
     System.out.println("Sol type 2 : ");
-    printAllSubsequences.printAll2(array , 0 , new LinkedList<>() , 2);
+    //printAllSubsequences.printAnyOne2(array , 0 , new LinkedList<>() , 2);
 
     System.out.println("#################################");
     Integer [] array2 = {5,1,2,3,-1} ;
     System.out.println("Sol type 1 : ");
-    printAllSubsequences.printAll(array2,0,new LinkedList<>(),4,0);
+    //printAllSubsequences.printAnyOne(array2,0,new LinkedList<>(),4,0);
+    printAllSubsequences.printAnyOne(array2,0,new LinkedList<>(),4,0);
+
 
     System.out.println("Sol type 2 : ");
-    printAllSubsequences.printAll2(array2 , 0 , new LinkedList<>() , 4);
+    //printAllSubsequences.printAnyOne2(array2 , 0 , new LinkedList<>() , 4);
+
 
   }
 
