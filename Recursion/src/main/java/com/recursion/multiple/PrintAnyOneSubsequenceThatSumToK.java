@@ -24,28 +24,33 @@ public class PrintAnyOneSubsequenceThatSumToK {
       return true;
 
     subsequence.removeLast();
-    result = printAnyOne(array, index + 1, subsequence,k,currentSum );
 
-    if(result)
-      return true;
+    return printAnyOne(array, index + 1, subsequence,k,currentSum );
 
-    return false;
+
 
   }
 
-  public void printAnyOne2(Integer[] array, int index, LinkedList<Integer> subsequence, long k) {
+  public boolean printAnyOne2(Integer[] array, int index, LinkedList<Integer> subsequence, long k) {
 
-    if (subsequence.stream().reduce(0, (a, b) -> a + b) == k){
+    if (subsequence.size() > 0 && subsequence.stream().reduce(0, (a, b) -> a + b) == k){
       subsequence.forEach( d -> System.out.print(d+" "));
       System.out.println();
       System.out.println("--------");
+      return true;
+    } else if(index >= array.length)
+      return false;
+
+    subsequence.add(array[index]);
+    if(printAnyOne2(array,index + 1 , subsequence , k))
+      return true;
+    else{
+      subsequence.removeLast();
+      return printAnyOne2(array , index + 1 , subsequence , k);
     }
 
-    for(int i = index ; i  < array.length ; i++){
-      subsequence.addLast(array[i]);
-      printAnyOne2(array, i + 1, subsequence , k);
-      subsequence.removeLast();
-    }
+
+
 
   }
 
@@ -57,17 +62,23 @@ public class PrintAnyOneSubsequenceThatSumToK {
     printAllSubsequences.printAnyOne(array,0,new LinkedList<>(),2,0);
 
     System.out.println("Sol type 2 : ");
-    //printAllSubsequences.printAnyOne2(array , 0 , new LinkedList<>() , 2);
+    printAllSubsequences.printAnyOne2(array , 0 , new LinkedList<>() , 2);
 
     System.out.println("#################################");
     Integer [] array2 = {5,1,2,3,-1} ;
     System.out.println("Sol type 1 : ");
-    //printAllSubsequences.printAnyOne(array2,0,new LinkedList<>(),4,0);
     printAllSubsequences.printAnyOne(array2,0,new LinkedList<>(),4,0);
 
+    System.out.println("Sol type 2 : ");
+    printAllSubsequences.printAnyOne2(array2,0,new LinkedList<>(),4);
+
+    System.out.println("#################################");
+    Integer [] array3 = {5,1,2,3,-1} ;
+    System.out.println("Sol type 1 : ");
+    printAllSubsequences.printAnyOne(array3,0,new LinkedList<>(),0,0);
 
     System.out.println("Sol type 2 : ");
-    //printAllSubsequences.printAnyOne2(array2 , 0 , new LinkedList<>() , 4);
+    printAllSubsequences.printAnyOne2(array3,0,new LinkedList<>(),0);
 
 
   }
