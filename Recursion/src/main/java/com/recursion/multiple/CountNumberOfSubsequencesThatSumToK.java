@@ -5,25 +5,19 @@ import java.util.LinkedList;
 // subsequence : a contiguous or non-contiguous sequence which follows the order
 public class CountNumberOfSubsequencesThatSumToK {
 
-  public int countAllSubsequencesThatSumToK(Integer[] array, int index, LinkedList<Integer> subsequence, long k , int currentSum) {
+  public int countAllSubsequencesThatSumToK(Integer[] array, int index, long k , int currentSum) {
 
     if (index >= array.length)
       return 0;
-    else
-      subsequence.addLast(array[index]);
+
 
     if (currentSum + array[index] == k){
-      //subsequence.forEach( d -> System.out.print(d+" "));
-      //System.out.println();
-      //System.out.println("--------");
       return 1;
     }
 
-    int result = countAllSubsequencesThatSumToK(array, index + 1, subsequence , k, currentSum + array[index]);
+    int result = countAllSubsequencesThatSumToK(array, index + 1 , k, currentSum + array[index]);
 
-    subsequence.removeLast();
-
-    int result2 =  countAllSubsequencesThatSumToK(array, index + 1, subsequence,k,currentSum );
+    int result2 =  countAllSubsequencesThatSumToK(array, index + 1,k,currentSum );
 
     return result + result2;
 
@@ -32,9 +26,6 @@ public class CountNumberOfSubsequencesThatSumToK {
   public int countSubsequences2(Integer[] array, int index, LinkedList<Integer> subsequence, long k) {
 
     if (subsequence.size() > 0 && subsequence.stream().reduce(0, (a, b) -> a + b) == k){
-      //subsequence.forEach( d -> System.out.print(d+" "));
-      //System.out.println();
-      //System.out.println("--------");
       return 1;
     } else if(index >= array.length)
       return 0;
@@ -54,7 +45,7 @@ public class CountNumberOfSubsequencesThatSumToK {
     CountNumberOfSubsequencesThatSumToK countNumberOfSubsequencesThatSumToK = new CountNumberOfSubsequencesThatSumToK();
 
     System.out.println("Sol type 1 : " + countNumberOfSubsequencesThatSumToK.countAllSubsequencesThatSumToK
-        (array,0,new LinkedList<>(),2,0));
+        (array,0,2,0));
 
 
     System.out.println("Sol type 2 : " + countNumberOfSubsequencesThatSumToK.countSubsequences2
@@ -63,7 +54,7 @@ public class CountNumberOfSubsequencesThatSumToK {
     System.out.println("#################################");
     Integer [] array2 = {5,1,2,3,-1} ;
     System.out.println("Sol type 1 : " + countNumberOfSubsequencesThatSumToK.countAllSubsequencesThatSumToK
-        (array2,0,new LinkedList<>(),4,0));
+        (array2,0,4,0));
 
 
     System.out.println("Sol type 2 : " + countNumberOfSubsequencesThatSumToK.
@@ -72,7 +63,7 @@ public class CountNumberOfSubsequencesThatSumToK {
     System.out.println("#################################");
     Integer [] array3 = {5,1,2,3,-1} ;
     System.out.println("Sol type 1 : " + countNumberOfSubsequencesThatSumToK.countAllSubsequencesThatSumToK
-        (array3,0,new LinkedList<>(),0,0));
+        (array3,0,0,0));
 
 
     System.out.println("Sol type 2 : " + countNumberOfSubsequencesThatSumToK.countSubsequences2
