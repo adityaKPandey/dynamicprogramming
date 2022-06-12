@@ -76,7 +76,7 @@ public class FindAllCombinationsThatSumToK {
 
     findAllCombinationsThatSumToK.findAllCombinationsThatSumToK2(new long[]{1,2,3,4,5,6}, 10 , 0  , new LinkedList<>(),allCombinations);
     System.out.println("###########");
-    System.out.println(allCombinations.toString());
+    System.out.println(allCombinations);
 
   }
 
