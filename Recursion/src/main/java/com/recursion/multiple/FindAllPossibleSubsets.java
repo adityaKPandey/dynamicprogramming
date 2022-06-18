@@ -31,11 +31,11 @@ public class FindAllPossibleSubsets {
   public void findAllSubsetsWithoutSet(long[] input, int index, LinkedList<Long> subset,
       Collection<List<Long>> subsets) {
 
-    if (index > input.length + 1) {
+    if (index >= input.length) {
       return;
     } else {
 
-      for (int i = index; i <= input.length; i++) {
+      for (int i = index; i < input.length; i++) {
         if (i < input.length && i > index && input[i] == input[i - 1]) {
           continue;
         }
@@ -105,6 +105,7 @@ public class FindAllPossibleSubsets {
     //setOfSubsets = new HashSet<>() ;
     long[] inpArray = new long[]{1, 2, 1};
     Arrays.sort(inpArray);
+    listOfSubsets = new ArrayList<>();
     subsetSums.findAllSubsetsWithoutSet(inpArray, 0, new LinkedList<>(), listOfSubsets);
     listOfSubsets.add(new LinkedList<>());
     System.out.println("O/P size:" + listOfSubsets.size());
