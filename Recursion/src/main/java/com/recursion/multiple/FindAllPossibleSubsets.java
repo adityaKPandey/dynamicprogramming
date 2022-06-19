@@ -31,24 +31,16 @@ public class FindAllPossibleSubsets {
   public void findAllSubsetsWithoutSet(long[] input, int index, LinkedList<Long> subset,
       Collection<List<Long>> subsets) {
 
-    if (index >= input.length) {
-      return;
-    } else {
-
-      for (int i = index; i < input.length; i++) {
-        if (i < input.length && i > index && input[i] == input[i - 1]) {
-          continue;
-        }
-
-        if (i < input.length) {
-          subset.add(input[i]);
-          subsets.add(new LinkedList<>(subset));
-          findAllSubsetsWithoutSet(input, i + 1, subset, subsets);
-          subset.removeLast();
-        }
-
+    for (int i = index; i < input.length; i++) {
+      if (i > index && input[i] == input[i - 1]) {
+        continue;
       }
+      subset.add(input[i]);
+      subsets.add(new LinkedList<>(subset));
+      findAllSubsetsWithoutSet(input, i + 1, subset, subsets);
+      subset.removeLast();
     }
+
   }
 
 
@@ -91,7 +83,6 @@ public class FindAllPossibleSubsets {
     listOfSubsets.stream().forEach(System.out::println);
 
     System.out.println("#############################");
-
 
     input = new long[]{1};
     listOfSubsets = new ArrayList<>();
