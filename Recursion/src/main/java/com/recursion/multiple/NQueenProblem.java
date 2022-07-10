@@ -120,7 +120,7 @@ public class NQueenProblem {
       return false;
     }
 
-    //right diagonal -> one starting at top left
+    //left diagonal -> one starting at top left
     if (leftDiagonalStatus[n - 1 + col - row]) {
       return false;
     }
